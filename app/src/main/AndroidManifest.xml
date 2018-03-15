@@ -20,7 +20,7 @@
         </activity>
 
         <service
-            android:name=".service.NetworkServiceImpl"
+            android:name=".service.impl.NetworkServiceImpl"
             android:enabled="true"
             android:exported="false"></service>
     </application>

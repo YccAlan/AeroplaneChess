@@ -93,7 +93,6 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel {
         animation.observeForever(chessmanMovedObserver);
 
         this.networkService=networkService;
-        isOnline=false;
         for (PlayerInfo i:roomInfo.getPlayerInfo()){
             Player player = null;
             switch (i.getType()){
@@ -105,7 +104,6 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel {
                     break;
                 case REMOTE_PLAYER:
                     player=new RemotePlayer(this,i,ai,networkService);
-                    isOnline=true;
                     break;
             }
             players.add(player);

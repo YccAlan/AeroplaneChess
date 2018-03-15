@@ -1,11 +1,13 @@
-package com.alan.aeroplanechess.service;
+package com.alan.aeroplanechess.service.impl;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
-public class NetworkServiceImpl extends Service implements NetworkService{
+import com.alan.aeroplanechess.service.NetworkService;
+
+public class NetworkServiceImpl extends Service implements NetworkService {
     public NetworkServiceImpl() {
     }
 
