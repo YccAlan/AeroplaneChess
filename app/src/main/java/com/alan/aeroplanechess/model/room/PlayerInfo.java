@@ -5,7 +5,7 @@ package com.alan.aeroplanechess.model.room;
  */
 
 public interface PlayerInfo {
-    enum Type{LOCAL_PLAYER,WIFI_PLAYER,AI_PLAYER,INTERNET_PLAYER}
+    enum Type{LOCAL_PLAYER,AI_PLAYER,REMOTE_PLAYER}
     enum State{ONLINE,AI,OFFLINE}
     Type getType();  //玩家类型
     int getPlayerId();  //玩家id，决定座位

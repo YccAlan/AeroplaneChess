@@ -7,7 +7,7 @@ import org.json.JSONObject;
  */
 
 public interface ChessAction {
-    ChessmanId getId();  //棋子id
+    ChessmanId getId();  //棋子id，为null表示不移动任何棋子
     int getStep();  //步数
     JSONObject toJson();
 }

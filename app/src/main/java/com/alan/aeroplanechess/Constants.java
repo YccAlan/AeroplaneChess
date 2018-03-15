@@ -5,9 +5,11 @@ package com.alan.aeroplanechess;
  */
 
 public class Constants {
-    static final int PORT=9088;
-    static final int NET_INVITATION=0;
-    static final int NET_ROOMINFO=1;
-    static final int NET_GAME=2;
-    static final int NET_EXIT=3;
+    public static final int PORT=9088;
+    public static final int NET_INVITATION=0;
+    public static final int NET_ROOMINFO=1;
+    public static final int NET_GAME=2;
+    public static final int NET_EXIT=3;
+
+    public static final int TURN_TIME=30;
 }

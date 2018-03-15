@@ -5,7 +5,6 @@ package com.alan.aeroplanechess.model.game;
  */
 
 public interface ChessmanId {
-    int getGroupId();  //小组id
     int getPlayerId();  //玩家id
     int getPlaneId();  //飞机id
 

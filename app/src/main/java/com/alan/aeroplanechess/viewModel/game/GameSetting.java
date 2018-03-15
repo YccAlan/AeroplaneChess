@@ -9,12 +9,11 @@ import java.util.List;
  */
 
 public class GameSetting {
-    int currentPlayer;
-    List<ChessmanId> movableChess;  //可移动的棋子
+    public List<ChessmanId> movableChess;  //可移动的棋子
 
     enum AIState{ON,OFF,DISABLED};
-    AIState aiState;  //托管状态
+    public AIState aiState;  //托管状态
 
-    enum DiceState{CLICKABLE,UNCLICKABLE};
-    DiceState diceState;  //骰子状态
+    public enum DiceState{CLICKABLE,UNCLICKABLE};
+    public DiceState diceState;  //骰子状态
 }
