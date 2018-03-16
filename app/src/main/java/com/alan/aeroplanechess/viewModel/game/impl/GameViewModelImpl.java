@@ -4,15 +4,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.alan.aeroplanechess.Constants;
-import com.alan.aeroplanechess.model.game.Ai;
+import com.alan.aeroplanechess.model.game.AI;
 import com.alan.aeroplanechess.model.game.ChessAction;
 import com.alan.aeroplanechess.model.game.ChessAnimation;
 import com.alan.aeroplanechess.model.game.ChessState;
@@ -26,6 +20,7 @@ import com.alan.aeroplanechess.model.game.impl.RemotePlayer;
 import com.alan.aeroplanechess.model.room.PlayerInfo;
 import com.alan.aeroplanechess.model.room.RoomInfo;
 import com.alan.aeroplanechess.service.NetworkService;
+import com.alan.aeroplanechess.viewModel.game.GameOperation;
 import com.alan.aeroplanechess.viewModel.game.GameSetting;
 import com.alan.aeroplanechess.viewModel.game.GameViewModel;
 
@@ -40,7 +35,7 @@ import java.util.TimerTask;
  * Created by yccalan on 2018/3/14.
  */
 
-public class GameViewModelImpl extends ViewModel implements GameViewModel {
+public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOperation {
     MutableLiveData<GameState> gameState=new MutableLiveData<>();
     MutableLiveData<Integer> currentPlayer=new MutableLiveData<>();
     MutableLiveData<GameSetting> gameSetting=new MutableLiveData<>();
@@ -55,7 +50,7 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel {
     Player current;
     int currentDice;
 
-    Ai ai;
+    AI ai;
     Timer timer=new Timer();
     UserInputObserver userInputObserver=new UserInputObserver();
     GameStateObserver gameStateObserver =new GameStateObserver();
@@ -112,13 +107,14 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel {
         turnStart();
     }
 
-
-
     void turnStart(){
-        if (roomInfo.isOnline())
-            timer.schedule(new UpdateCountDown(Constants.TURN_TIME),0,1000);
         currentPlayer.setValue(current.getPlayerInfo().getPlayerId());
         current.turnStart();
+    }
+
+    @Override
+    public void startCountDown(int time) {
+        timer.schedule(new UpdateCountDown(time),0,1000);
     }
 
     class UpdateCountDown extends TimerTask{

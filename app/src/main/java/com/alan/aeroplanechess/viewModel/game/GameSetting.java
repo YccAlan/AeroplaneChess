@@ -11,7 +11,7 @@ import java.util.List;
 public class GameSetting {
     public List<ChessmanId> movableChess;  //可移动的棋子
 
-    enum AIState{ON,OFF,DISABLED};
+    public enum AIState{ON,OFF,DISABLED};
     public AIState aiState;  //托管状态
 
     public enum DiceState{CLICKABLE,UNCLICKABLE};

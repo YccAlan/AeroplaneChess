@@ -9,7 +9,6 @@ public class Constants {
     public static final int NET_INVITATION=0;
     public static final int NET_ROOMINFO=1;
     public static final int NET_GAME=2;
-    public static final int NET_EXIT=3;
 
     public static final int TURN_TIME=30;
 }
