@@ -89,6 +89,7 @@ public class LocalPlayer implements Player {
             }
         }
         gameOperation.getMutableGameSetting().postValue(gameSetting);
+        gameOperation.updatePlayerInfo(playerInfo);
     }
 
     @Override

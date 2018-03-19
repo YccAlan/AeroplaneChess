@@ -26,7 +26,6 @@ import com.alan.aeroplanechess.viewModel.game.GameViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,7 +40,11 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
     MutableLiveData<GameSetting> gameSetting=new MutableLiveData<>();
     MutableLiveData<Integer> dice=new MutableLiveData<>();
     MutableLiveData<Integer> countDown=new MutableLiveData<>();
-    MutableLiveData<List<ChessAnimation>> animation=new MutableLiveData<>();
+    MutableLiveData<List<ChessAnimation>> animations =new MutableLiveData<>();
+    List<LiveData<PlayerInfo>> playersInfo=new ArrayList<>();
+
+    static RoomInfo initialRoomInfo;
+    static NetworkService initialNetworkService;
 
     RoomInfo roomInfo;
     ArrayList<Player> players=new ArrayList<>(4);
@@ -78,18 +81,26 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
         return dice;
     }
 
-    public void GameViewModel(RoomInfo roomInfo, NetworkService networkService){
-        this.roomInfo=roomInfo;
+    public static void initial(RoomInfo roomInfo,NetworkService networkService){
+        GameViewModelImpl.initialRoomInfo=roomInfo;
+        GameViewModelImpl.initialNetworkService=networkService;
+    }
+
+    public void GameViewModel(){
+        this.roomInfo=initialRoomInfo;
         this.random=new Random(roomInfo.getRandomSeed());
         chessState=new ChessStateImpl(roomInfo);
         ai=new AiImpl(chessState);
         gameState.observeForever(gameStateObserver);
         gameSetting.observeForever(userInputObserver);
-        animation.observeForever(chessmanMovedObserver);
+        animations.observeForever(chessmanMovedObserver);
 
-        this.networkService=networkService;
+        this.networkService=initialNetworkService;
         for (PlayerInfo i:roomInfo.getPlayerInfo()){
             Player player = null;
+            MutableLiveData<PlayerInfo> playerInfo=new MutableLiveData<>();
+            playerInfo.setValue(i);
+            playersInfo.add(playerInfo);
             switch (i.getType()){
                 case LOCAL_PLAYER:
                     player=new LocalPlayer(this,i,ai);
@@ -134,12 +145,7 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
     }
 
     @Override
-    public RoomInfo getRoomInfo() {
-        return roomInfo;
-    }
-
-    @Override
-    public Map<ChessmanId, ChessmanState> getStates() {
+    public List<ChessmanState> getStates() {
         return chessState.getStates();
     }
 
@@ -167,7 +173,7 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
         if (gameState.getValue()==GameState.BACKGROUND)  //跳过动画
             actionTaken();
         else
-            animation.postValue(chessState.getAnimations(chessState.getCurrentActionCount()-1));
+            animations.postValue(chessState.getAnimations(chessState.getCurrentActionCount()-1));
     }
 
     void actionTaken(){
@@ -202,7 +208,8 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
             }
             if (gameState==GameState.BACKGROUND){
                 if (roomInfo.isOnline()){
-                    networkService.runInBackground();
+                    networkService.runInBackground(this);
+                    animations.postValue(null);
                 }
             }
         }
@@ -229,6 +236,20 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
     }
 
     @Override
+    public void updatePlayerInfo(PlayerInfo playerInfo) {
+        for (LiveData<PlayerInfo> i:playersInfo)
+            if (i.getValue().getPlayerId()==playerInfo.getPlayerId()){
+                ((MutableLiveData<PlayerInfo>)i).postValue(playerInfo);
+                break;
+            }
+    }
+
+    @Override
+    public List<ChessmanId> getMovableChessman(int playerId, int step) {
+        return chessState.getMovableChessman(playerId,step);
+    }
+
+    @Override
     public MutableLiveData<GameSetting> getMutableGameSetting() {
         return gameSetting;
     }
@@ -238,9 +259,13 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
         return currentPlayer;
     }
 
+    public List<LiveData<PlayerInfo>> getPlayersInfo() {
+        return playersInfo;
+    }
+
     @Override
-    public MutableLiveData<List<ChessAnimation>> getAnimation() {
-        return animation;
+    public MutableLiveData<List<ChessAnimation>> getAnimations() {
+        return animations;
     }
 
     @Override

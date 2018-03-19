@@ -12,7 +12,7 @@ public interface ChessmanState {  //先通过静态方法传入地图尺寸
     ChessmanState move(int step);  //前进step后的位置
     State getState();  //棋子状态
 
-    int getX();  //地图上的X坐标
-    int getY();  //地图上的Y坐标
-    int getAngle();  //棋子朝向
+    float getX();  //地图上的X坐标
+    float getY();  //地图上的Y坐标
+    float getAngle();  //棋子朝向
 }

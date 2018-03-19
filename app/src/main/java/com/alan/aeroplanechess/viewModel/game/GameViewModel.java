@@ -7,7 +7,7 @@ import com.alan.aeroplanechess.model.game.ChessAction;
 import com.alan.aeroplanechess.model.game.ChessAnimation;
 import com.alan.aeroplanechess.model.game.ChessmanState;
 import com.alan.aeroplanechess.model.game.GroupResult;
-import com.alan.aeroplanechess.model.room.RoomInfo;
+import com.alan.aeroplanechess.model.room.PlayerInfo;
 
 import java.util.List;
 
@@ -23,8 +23,8 @@ public interface GameViewModel {
     LiveData<Integer> getCountDown();  //倒计时，0时隐藏
     LiveData<Integer> getDice();  //骰子点数
     List<ChessmanState> getStates();  //棋盘状态
-    RoomInfo getRoomInfo();  //房间信息（玩家名称、位置、组别等）
-    MutableLiveData<List<ChessAnimation>> getAnimation();
+    List<LiveData<PlayerInfo>> getPlayersInfo();  //玩家信息（玩家名称、位置、组别等）
+    MutableLiveData<List<ChessAnimation>> getAnimations();
     List<GroupResult> getResults();  //游戏成绩
 
     void takeAction(ChessAction action);  //移动棋子
