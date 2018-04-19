@@ -6,6 +6,7 @@ package com.alan.aeroplanechess;
 
 public class Constants {
     public static final int PORT=9088;
+    public static final int NETWORK_TIMEOUT=10000;
     public static final int NET_INVITATION=0;
     public static final int NET_ROOMINFO=1;
     public static final int NET_GAME=2;

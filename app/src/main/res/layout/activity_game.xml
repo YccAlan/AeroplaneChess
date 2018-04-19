@@ -10,7 +10,7 @@
         android:id="@+id/player1"
         layout="@layout/player_view_r"
         android:layout_width="100dp"
-        android:layout_height="30"
+        android:layout_height="30dp"
         app:layout_constraintBottom_toTopOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -18,7 +18,7 @@
         android:id="@+id/player2"
         layout="@layout/player_view_l"
         android:layout_width="100dp"
-        android:layout_height="30"
+        android:layout_height="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map" />
 
@@ -26,7 +26,7 @@
         android:id="@+id/player3"
         layout="@layout/player_view_r"
         android:layout_width="100dp"
-        android:layout_height="30"
+        android:layout_height="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map" />
 
@@ -55,14 +55,14 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:cropToPadding="false"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:srcCompat="@drawable/cheessboard" />
 
     </FrameLayout>
 
     <ImageButton
         android:id="@+id/dice"
-        android:layout_width="50"
-        android:layout_height="50"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:scaleType="centerCrop"

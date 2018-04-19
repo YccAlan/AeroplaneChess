@@ -46,7 +46,7 @@ public class PlayerView {
             spinning.cancel();
     }
 
-    public void setStatus(PlayerInfo.State state){
+    public void updateStatus(){
         status.setText(String.valueOf(playerInfo.getState()));
     }
 }

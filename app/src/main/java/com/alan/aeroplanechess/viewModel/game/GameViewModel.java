@@ -23,7 +23,7 @@ public interface GameViewModel {
     LiveData<Integer> getCountDown();  //倒计时，0时隐藏
     LiveData<Integer> getDice();  //骰子点数
     List<ChessmanState> getStates();  //棋盘状态
-    List<LiveData<PlayerInfo>> getPlayersInfo();  //玩家信息（玩家名称、位置、组别等）
+    List<LiveData<PlayerInfo>> getPlayerInfoList();  //玩家信息（玩家名称、位置、组别等）
     MutableLiveData<List<ChessAnimation>> getAnimations();
     List<GroupResult> getResults();  //游戏成绩
 

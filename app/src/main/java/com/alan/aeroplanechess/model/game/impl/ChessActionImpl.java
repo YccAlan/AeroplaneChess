@@ -2,7 +2,9 @@ package com.alan.aeroplanechess.model.game.impl;
 
 import com.alan.aeroplanechess.model.game.ChessAction;
 import com.alan.aeroplanechess.model.game.ChessmanId;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -20,16 +22,25 @@ public class ChessActionImpl implements ChessAction {
 
     @Override
     public ChessmanId getChessmanId() {
-        return null;
+        return chessmanId;
     }
 
     @Override
     public int getStep() {
-        return 0;
+        return step;
     }
 
     @Override
     public JSONObject toJson() {
+        try {
+            return new JSONObject(new Gson().toJson(this));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return null;
+    }
+
+    static ChessActionImpl fromJSON(JSONObject json){
+        return new Gson().fromJson(json.toString(),ChessActionImpl.class);
     }
 }

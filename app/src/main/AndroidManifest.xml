@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alan.aeroplanechess">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -10,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +25,11 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activity.GameActivity"></activity>
+        <activity android:name=".activity.GameActivity" />
+        <activity
+            android:name=".activity.room.RoomActivity"
+            android:label="@string/title_activity_room"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

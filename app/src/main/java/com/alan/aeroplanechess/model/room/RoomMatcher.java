@@ -9,5 +9,6 @@ public interface RoomMatcher {
     void cancelMatch();
     interface OnMatchedListener{
         void onMatched(RoomInfo roomInfo);
+        void onFailed();
     }
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ImageButton
+            android:id="@+id/clear"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="right|top"
+            android:src="@drawable/ic_clear_black_24dp"></ImageButton>
+
+        <!--<shape xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:shape="oval">-->
+
+        <!--<solid android:color="#5afbfd" />-->
+
+        <!--<size-->
+        <!--android:width="80dp"-->
+        <!--android:height="80dp" />-->
+        <!--</shape>-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher_background"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="3dp" />
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:background="@drawable/circle_shape" />-->
+
+
+        <!--<shape xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:shape="oval"-->
+        <!--android:layout_gravity="center_vertical|center_horizontal"-->
+        <!--&gt;-->
+
+        <!--<soild android:color="#56cef2" />-->
+
+        <!--<size-->
+        <!--android:width="100dp"-->
+        <!--android:height="100dp"-->
+        <!--/>-->
+        <!--</shape>-->
+
+        <!--<shape xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:shape="ring"-->
+        <!--android:useLevel="false"-->
+        <!--android:thickness="10dp"-->
+        <!--android:innerRadius="50dp"-->
+        <!--android:layout_gravity="center_vertical|center_horizontal">-->
+
+        <!--<soild android:color="#d6070d" />-->
+
+        <!--<size-->
+        <!--android:width="100dp"-->
+        <!--android:height="100dp" />-->
+        <!--</shape>-->
+
+
+    </FrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="64dp"
+            android:layout_height="36dp"
+            android:layout_gravity="right|top"
+            android:text="exit" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addLocalPlayer"
+                android:layout_width="130dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_shape"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Local Player" />
+
+            <Button
+                android:id="@+id/addPendingPlayer"
+                android:layout_width="130dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_shape"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Pending Player" />
+
+            <Button
+                android:id="@+id/addWifiPlayer"
+                android:layout_width="130dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_shape"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Wifi Player" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="100dp"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <!--<fragment-->
+                <!--android:id="@+id/playerfragment1"-->
+                <!--android:name="com.alan.aeroplanechess.PlayerFragment"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1" />-->
+                <include
+                    android:id="@+id/player1"
+                    layout="@layout/playeravator"></include>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/player2"
+                    layout="@layout/playeravator"></include>
+                <!--<fragment-->
+                <!--android:id="@+id/playerfragment2"-->
+                <!--android:name="com.alan.aeroplanechess.PlayerFragment"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1" />-->
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="250dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/player3"
+                    layout="@layout/playeravator"></include>
+                <!--<fragment-->
+                <!--android:id="@+id/playerfragment3"-->
+                <!--android:name="com.alan.aeroplanechess.PlayerFragment"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/player4"
+                    layout="@layout/playeravator"></include>
+                <!--<fragment-->
+                <!--android:id="@+id/playerfragment4"-->
+                <!--android:name="com.alan.aeroplanechess.PlayerFragment"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1" />-->
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="400dp"
+            android:layout_marginBottom="70dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/startLocal"
+                android:layout_width="64dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_shape"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="startLocal" />
+
+            <Button
+                android:id="@+id/startOnline"
+                android:layout_width="64dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_shape"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="startOnline" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>

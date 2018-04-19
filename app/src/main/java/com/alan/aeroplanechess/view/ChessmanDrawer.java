@@ -15,6 +15,7 @@ import com.alan.aeroplanechess.model.game.ChessAnimation;
 import com.alan.aeroplanechess.model.game.ChessmanId;
 import com.alan.aeroplanechess.model.game.ChessmanState;
 import com.alan.aeroplanechess.model.game.impl.ChessmanIdImpl;
+import com.alan.aeroplanechess.util.Utils;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,16 +27,22 @@ import java.util.Map;
  */
 
 public class ChessmanDrawer {
-    int chessmanImage[]={};
-    Context context;
+    int chessmanImage[]={R.drawable.chessman0,R.drawable.chessman1,R.drawable.chessman2,R.drawable.chessman3};
+//    Context context;
     FrameLayout map;
     List<ChessmanState> chessmanStates;
-    HashMap<Integer,ImageView> chessmen;
+    HashMap<Integer,ImageView> chessmen=new HashMap<>();
     SoundPool soundPool;
     int startSound,collisionSound,finishSound;
 
     public ChessmanDrawer(FrameLayout map, List<ChessmanState> chessmanStates, Context context){
         this.map=map;
+        for (ChessmanState i:chessmanStates){
+            ImageView c=LayoutInflater.from(context).inflate(R.layout.chessman_view,map,true).findViewById(R.id.chessman);
+            c.setLayoutParams(new FrameLayout.LayoutParams(Utils.getScreenWidth()/23,Utils.getScreenWidth()/23));
+            c.setImageDrawable(context.getDrawable(chessmanImage[i.getChessmanId().getPlaneId()]));
+            chessmen.put(i.getChessmanId().getId(),c);
+        }
         updateStates(chessmanStates);
         soundPool=new SoundPool.Builder().setMaxStreams(10).build();
         startSound=soundPool.load(context,R.raw.plane_up,1);
@@ -46,12 +53,10 @@ public class ChessmanDrawer {
     public void updateStates(List<ChessmanState> chessmanStates){
         this.chessmanStates=chessmanStates;
         for (ChessmanState i:chessmanStates){
-            ImageView c= (ImageView) LayoutInflater.from(context).inflate(R.layout.chessman_view,map);
-            c.setImageDrawable(context.getDrawable(chessmanImage[i.getChessmanId().getPlaneId()]));
+            ImageView c=chessmen.get(i.getChessmanId().getId());
             c.setTranslationX(i.getX());
             c.setTranslationY(i.getY());
             c.setRotation(i.getAngle());
-            chessmen.put(i.getChessmanId().getId(),c);
         }
     }
 

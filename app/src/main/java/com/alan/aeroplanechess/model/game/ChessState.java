@@ -13,7 +13,7 @@ public interface ChessState {  //传入玩家信息List<PlayerInfo>
     void addAction(ChessAction action);  //下一步棋
     List<ChessmanState> getStates();  //所有棋子状态
     List<PlayerInfo> getPlayerInfo();  //玩家信息，按id排序
-    int getCurrentActionCount();  //当前步数
+    int getCurrentActionCount();  //当前行动数
     List<ChessmanId> getMovableChessman(int playerId,int step);  //可移动棋子
     List<ChessAnimation> getAnimations(int beginning);  //从beginning到当前操作的动画序列
     boolean isFinished();  //是否结束

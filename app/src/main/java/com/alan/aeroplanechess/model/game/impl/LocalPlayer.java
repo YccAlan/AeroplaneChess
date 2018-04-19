@@ -89,6 +89,7 @@ public class LocalPlayer implements Player {
             }
         }
         gameOperation.getMutableGameSetting().postValue(gameSetting);
+        playerInfo.setState(PlayerInfo.State.AI);
         gameOperation.updatePlayerInfo(playerInfo);
     }
 

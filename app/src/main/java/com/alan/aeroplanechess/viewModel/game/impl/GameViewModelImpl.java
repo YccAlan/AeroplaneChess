@@ -14,7 +14,9 @@ import com.alan.aeroplanechess.model.game.ChessmanId;
 import com.alan.aeroplanechess.model.game.ChessmanState;
 import com.alan.aeroplanechess.model.game.GroupResult;
 import com.alan.aeroplanechess.model.game.Player;
+import com.alan.aeroplanechess.model.game.impl.AIImpl;
 import com.alan.aeroplanechess.model.game.impl.AIPlayer;
+import com.alan.aeroplanechess.model.game.impl.ChessStateImpl;
 import com.alan.aeroplanechess.model.game.impl.LocalPlayer;
 import com.alan.aeroplanechess.model.game.impl.RemotePlayer;
 import com.alan.aeroplanechess.model.room.PlayerInfo;
@@ -41,10 +43,7 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
     MutableLiveData<Integer> dice=new MutableLiveData<>();
     MutableLiveData<Integer> countDown=new MutableLiveData<>();
     MutableLiveData<List<ChessAnimation>> animations =new MutableLiveData<>();
-    List<LiveData<PlayerInfo>> playersInfo=new ArrayList<>();
-
-    static RoomInfo initialRoomInfo;
-    static NetworkService initialNetworkService;
+    List<LiveData<PlayerInfo>> playerInfoList =new ArrayList<>();
 
     RoomInfo roomInfo;
     ArrayList<Player> players=new ArrayList<>(4);
@@ -81,26 +80,26 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
         return dice;
     }
 
-    public static void initial(RoomInfo roomInfo,NetworkService networkService){
-        GameViewModelImpl.initialRoomInfo=roomInfo;
-        GameViewModelImpl.initialNetworkService=networkService;
+    @Override
+    public int getCurrentStep() {
+        return chessState.getCurrentActionCount()+1;
     }
 
-    public void GameViewModel(){
-        this.roomInfo=initialRoomInfo;
+    public GameViewModelImpl(RoomInfo roomInfo, NetworkService networkService){
+        this.roomInfo=roomInfo;
+        this.networkService=networkService;
         this.random=new Random(roomInfo.getRandomSeed());
-        chessState=new ChessStateImpl(roomInfo);
-        ai=new AiImpl(chessState);
+        chessState=new ChessStateImpl(roomInfo.getPlayerInfoList());
+        ai=new AIImpl(chessState);
         gameState.observeForever(gameStateObserver);
         gameSetting.observeForever(userInputObserver);
         animations.observeForever(chessmanMovedObserver);
 
-        this.networkService=initialNetworkService;
-        for (PlayerInfo i:roomInfo.getPlayerInfo()){
+        for (PlayerInfo i:roomInfo.getPlayerInfoList()){
             Player player = null;
             MutableLiveData<PlayerInfo> playerInfo=new MutableLiveData<>();
             playerInfo.setValue(i);
-            playersInfo.add(playerInfo);
+            playerInfoList.add(playerInfo);
             switch (i.getType()){
                 case LOCAL_PLAYER:
                     player=new LocalPlayer(this,i,ai);
@@ -154,7 +153,7 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
         if (gameState.getValue()==GameState.BACKGROUND)  //跳过动画
             diceRolled();
         else
-            gameState.setValue(GameState.ROLL_DICE);
+            gameState.postValue(GameState.ROLL_DICE);
     }
 
     void diceRolled(){
@@ -167,9 +166,10 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
     @Override
     public void takeAction(ChessAction action) {
         chessState.addAction(action);
-        for (Player i:players)
-            if (i!=current)
-                i.notifyAction(action);
+        if (current.getPlayerInfo().getType()== PlayerInfo.Type.LOCAL_PLAYER)
+            for (Player i:players)
+                if (i!=current)
+                    i.notifyAction(action);
         if (gameState.getValue()==GameState.BACKGROUND)  //跳过动画
             actionTaken();
         else
@@ -208,7 +208,7 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
             }
             if (gameState==GameState.BACKGROUND){
                 if (roomInfo.isOnline()){
-                    networkService.runInBackground(this);
+                    networkService.runInBackground();
                     animations.postValue(null);
                 }
             }
@@ -237,7 +237,7 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
 
     @Override
     public void updatePlayerInfo(PlayerInfo playerInfo) {
-        for (LiveData<PlayerInfo> i:playersInfo)
+        for (LiveData<PlayerInfo> i: playerInfoList)
             if (i.getValue().getPlayerId()==playerInfo.getPlayerId()){
                 ((MutableLiveData<PlayerInfo>)i).postValue(playerInfo);
                 break;
@@ -259,8 +259,8 @@ public class GameViewModelImpl extends ViewModel implements GameViewModel,GameOp
         return currentPlayer;
     }
 
-    public List<LiveData<PlayerInfo>> getPlayersInfo() {
-        return playersInfo;
+    public List<LiveData<PlayerInfo>> getPlayerInfoList() {
+        return playerInfoList;
     }
 
     @Override

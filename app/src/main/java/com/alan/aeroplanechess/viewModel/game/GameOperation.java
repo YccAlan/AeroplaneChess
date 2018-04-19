@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface GameOperation {
     MutableLiveData<GameSetting> getMutableGameSetting();
+    int getCurrentStep();
     void updatePlayerInfo(PlayerInfo playerInfo);
     List<ChessmanId> getMovableChessman(int playerId, int step);  //可移动棋子
     void takeAction(ChessAction action);  //移动棋子

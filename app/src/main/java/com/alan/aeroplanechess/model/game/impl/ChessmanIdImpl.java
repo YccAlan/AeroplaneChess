@@ -13,6 +13,10 @@ public class ChessmanIdImpl implements ChessmanId {
         this.chessmanId=chessmanId;
     }
 
+    public ChessmanIdImpl(int playerId,int planeId){
+        chessmanId=playerId*4+planeId;
+    }
+
     @Override
     public int getPlayerId() {
         return chessmanId/4;

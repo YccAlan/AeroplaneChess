@@ -9,9 +9,9 @@ import java.util.List;
  */
 
 public interface RoomInfo {
-    List<PlayerInfo> getPlayerInfo();  //玩家信息，按id排序
+    List<PlayerInfo> getPlayerInfoList();  //玩家信息，按id排序
     void addPlayer(PlayerInfo playerInfo);  //添加玩家
-    void removePlayer(int playerId);  //移除玩家
+    void removePlayer(PlayerInfo playerInfo);  //移除玩家
     boolean isOnline();  //是否为在线房间
     void setRandomSeed(long randomSeed);  //设置随机种子
     long getRandomSeed();  //获取随机种子

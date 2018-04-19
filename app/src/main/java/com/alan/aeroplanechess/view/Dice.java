@@ -31,7 +31,7 @@ public class Dice {
     public void row(Runnable finishedListener){
         AnimationDrawable animationDrawable=new AnimationDrawable();
         for(int i=1;i<=20;i++)
-            animationDrawable.addFrame(context.getDrawable(diceImageId[random.nextInt()%6+1]),50);
+            animationDrawable.addFrame(context.getDrawable(diceImageId[random.nextInt(6)%6+1]),50);
         animationDrawable.setOneShot(true);
         diceView.setImageDrawable(animationDrawable);
         animationDrawable.start();
